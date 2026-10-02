@@ -1,10 +1,7 @@
-from dotenv import load_dotenv
 from langgraph.graph import MessagesState
 from langgraph.prebuilt import ToolNode
 
 from react import llm, tools
-
-load_dotenv()
 
 SYSTEM_MESSAGE = """
 You are a customer-support agent for an online shop.
@@ -14,7 +11,7 @@ Support hours are Monday to Friday, 9:00 to 17:00.
 """
 
 
-def run_agent_reasoning(state: MessagesState) -> MessagesState:
+def run_agent_reasoning(state: MessagesState) -> dict:
     """
     Run the agent reasoning node.
     """
