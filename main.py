@@ -1,4 +1,4 @@
-from dotenv import load_dotenv
+﻿from dotenv import load_dotenv
 from langchain_core.messages import HumanMessage, ToolMessage
 from langgraph.graph import END, MessagesState, StateGraph
 
@@ -6,8 +6,8 @@ from nodes import run_agent_reasoning, tool_node
 
 load_dotenv()
 
-AGENT_REASON = "agent_reason"
-ACT = "act"
+AGENT_REASON = "support_agent"
+ACT = "run_support_tools"
 LAST = -1
 
 
@@ -50,15 +50,15 @@ def trace(prompt: str) -> None:
         for node, output in update.items():
             for message in output["messages"]:
                 if isinstance(message, ToolMessage):
-                    print(f"{node:<12} -> {message.name}: {message.content}")
+                    print(f"{node:<17} -> {message.name}: {message.content}")
                 elif message.tool_calls:
                     rounds += 1
                     calls = ", ".join(
                         f"{c['name']}({c['args']})" for c in message.tool_calls
                     )
-                    print(f"{node:<12} -> tool_calls: {calls}")
+                    print(f"{node:<17} -> tool_calls: {calls}")
                 else:
-                    print(f"{node:<12} -> answer: {message.content}")
+                    print(f"{node:<17} -> answer: {message.content}")
     print(f"--- {rounds} tool round(s)")
 
 
